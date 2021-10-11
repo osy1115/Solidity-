@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/osy1115/Solidity-#readme",
   "dependencies": {
-    "solc": "^0.8.9",
     "web3": "^1.6.0"
   }
 }
