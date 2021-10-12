@@ -10,7 +10,7 @@ const deployContract = new web3.eth.Contract(ABI); // 블럭생성할때 솔리�
 // deployContract.deploy({
 //     data:BYTECODE,     // 배포할때 솔리디티 컴파일한 byte값 넣음
 //     // 배포할때 voting.sol.constructor 인자값을 넣어줘야함
-//     arguments:[['ingoo1','ingoo2','ingoo3'].map(name => web3.utils.asciiToHex(name))] // 16진수 변환
+//     arguments:[['ingoo1','ingoo2','ingoo3'].map(name => web3.utils.asciiToHex(name))] // 16진수 변환, {}대괄호 없으면 return 생략가능
 // })
 // .send({
 //     from:'0x3434bF02b5DbB4eb98052AB868af9B8B12b36040',
@@ -28,3 +28,4 @@ contract.methods.totalVotesFor('ingoo1').call().then(data =>{// call()까지 실
     console.log(data)
 }) 
 // send의 역할, 이더를 갖고 있는 누군가 투표했다. 그게 누구인지 알려줌.
+// 나랑 똑같은 블록을 여러명이 사용할 수 있게끔 하는게 마이닝이다. 오직 지분증명을 위해서 

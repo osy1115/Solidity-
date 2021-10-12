@@ -10,7 +10,7 @@ connection.eth.getBalance('0x2A65Ee84C0B0e93683FEA36bf7D278CFf0b74Fe1')
     console.log(data) // 16진수가 아니라 10진수로 리턴함.
 })
 
-// 스마트 컨트랙트
+// 스마트 컨트랙트.
 // 코드(솔리디티)를 RPC통신으로 실행시킴.
 // 솔리디티를 실행시키려면 컴파일 과정을 거쳐야함.
 // hello.sol => 컴파일 -> abi & bin 파일
