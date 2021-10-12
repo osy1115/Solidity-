@@ -40,3 +40,20 @@ curl -X POST -d '{"jsonrpc":"2.0","method":"eth_getbalance","params":["0xD5B0107
 
 
 web3 라이브러리 사용(자바스크립트 사용)
+
+
+# 투표앱
+
+1. 솔리디티 코드작성
+2. 솔리디티 코드 컴파일
+    solcjs --abi --bin
+    결과물 abi, bin
+3. 컴파일 결과 스마트컨트랙트 배포
+    (web3 라이브러리 활용해서 deploy함)
+    - deploy.js 파일 만들기
+    - web3 라이브러리 가져오고
+    - 내가 현재 사용하고 있는 블록체인 서버에 연결 = 가나쉬
+    - 배포하기위해 Contract 메서드를 사용해서 블록생성
+    - 결과값 배포하기(deploy)
+4. 컴파일 결과를 js코드로 불러올수있는지 테스트,
+5. html에서 js web3 활용하여 내용을 불러옴
