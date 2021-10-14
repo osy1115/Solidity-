@@ -1,7 +1,7 @@
 /* 가나쉬 연결 */
 
 
-const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')) //노드js 자바스크립트를 해석하지 않고 브라우저로 바로 보내도록
+const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545')) //노드js 자바스크립트를 해석하지 않고 브라우저로 바로 보내도록
 
 const ABI = JSON.parse(`[{"inputs":[{"internalType":"string[]","name":"_candidateNames","type":"string[]"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"candidateList","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_candidate","type":"string"}],"name":"totalVotesFor","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_candidate","type":"string"}],"name":"validCandidate","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"_candidate","type":"string"}],"name":"voteForCandidate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"","type":"string"}],"name":"voteReceived","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]`);
 const deployAddress = `0xc54e08da16d942da32b0afe17c3728fd8df5a4c2`;
@@ -12,8 +12,9 @@ let candidates = {"ingoo1":"candidate1","ingoo2":"candidate2","ingoo3":"candidat
 window.addEventListener('DOMContentLoaded',init)
 async function init(){
     let candidataNames = Object.keys(candidates) //html 이름 가져오기
-    for(let i = 0; i < candidataNames.length; i++){
-        let name = candidataNames[i]
+    for(let i = 0; i < candidataNames.length; i++){ // 3
+        let name = candidataNames[i] //ingoo1
+        // candidate1 갖고 오고 싶다.
         candidates[name]
         const nameElement = document.querySelector(`#${candidates[name]}`)
         nameElement.innerHTML = name;
