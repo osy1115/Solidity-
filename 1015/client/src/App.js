@@ -46,7 +46,7 @@ const App = () => {
       { type: 'string', name: 'message' },
       { type: 'uint256', name: 'newVal' }
     ]
-    const returnValues = web3.eth.abi.decodeLog(params, log.data) 
+    const returnValues = web3.eth.abi.decodeLog(params, log.data)
     setStorage(returnValues.newVal)
     setLoading(prev => !prev)
   }
@@ -63,7 +63,8 @@ const App = () => {
   }
 
   // backend 거치고 서명
-  const sendAPI = () => {
+  const sendAPI = async () => {
+    const {web3,account} = state
     if (value > 0) {
       setLoading(prev => !prev)
       //비동기적 처리
@@ -72,7 +73,10 @@ const App = () => {
          3. 반환받은 값을 sendTransaction()에 실행한다.(실질적 서명)
       */
       // web3.eth.sendTransaction()
-
+      const result = await axios.post('http://localhost:3001/rpc/set',{ from:account, val:value })
+      if (result.data !== undefined && result.data.rawTx !== undefined && result.data.success == true){
+        await web3.eth.sendTransaction(result.data.rawTx)
+      }
       // rawTx = {
       //   "from":"address...",
       //   "to":"",
@@ -87,11 +91,13 @@ const App = () => {
 
 
   // Backend 서명
-  const sendTx = () => {
+  const sendTx = async () => {
+      const {account} = state
     if (value > 0) {
       setLoading(prev => !prev)
       //비동기적 처리
-
+      const result = await axios.post('http://localhost:3001/rpc/setTx',{ from:account, val:value })
+      
     }
   }
 
@@ -113,6 +119,7 @@ const App = () => {
     const Instance = await SimpleStorage.deployed()
 
     //작성한 변수값에 접근할 수 있는 인스턴스값을 구한 과정, 콘솔로그로 찍어서 확인.
+    
 
     dispatch(INIT_ACTIONS(web3, Instance, account)) //페이지가 한번 렌더가 되고 차례대로 코드가 실행되면서 INIT_ACTIONS까지 실행될것이다.
 
@@ -132,8 +139,8 @@ const App = () => {
       <input type="text" value={value} onChange={handleChange} />
       <div>
         <button onClick={send}>일반서명</button>
-        <button onClick={sendAPI}>DB 거치고 서명</button>
-        <button onClick={sendTx}>DB 서명</button>
+        <button onClick={sendAPI}>server 거치고 서명</button>
+        <button onClick={sendTx}>backend 서명</button>
       </div>
       <div>
         {loading ? 'loading' : storage}
